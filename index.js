@@ -32,6 +32,21 @@ mongoose.connection.once('open', function(){
 
 	//Load all the models
 	app.models = require('./models/index');
+
+
+	
+    //load routes
+	var routes =  require('./routes');
+
+	_.each(routes, function(controller, route){
+		app.use(route, controller(app, route));
+	});
+
+
+
 	console.log('listening on port 3000 . . .');
 	app.listen(3000);
 });
+
+
+//load routes 
